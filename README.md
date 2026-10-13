@@ -56,7 +56,6 @@ Swagger UI is at http://127.0.0.1:8000/docs. Open `POST /chat`, click
 |---------------------|---------------------------------------------------------------------|
 | `POST /chat`        | Route one query; returns answer, task, model, latencies, cost, usage, fallback attempts |
 | `POST /compare`     | Same query through the direct baseline (gpt-oss-120b) and the gateway |
-| `POST /benchmark`   | Run the 10 benchmark queries both ways and return average latency/cost (`?limit=3` for a quick run) |
 | `GET /routing`      | Show the routing table, baseline model and pricing                  |
 | `GET /health`       | Liveness check                                                      |
 
@@ -90,26 +89,6 @@ On Windows PowerShell, use `python demo_client.py` instead of curl; it sends
 sample queries to the running server and prints a summary table
 (`--compare` adds the baseline, `--all` runs all 10 queries).
 
-## Benchmark
-
-```bash
-python benchmark.py
-```
-
-Runs 10 queries (3 code, 3 summary, 4 general) through a direct call to the
-baseline model (gpt-oss-120b) and through the gateway, then prints average
-latency and estimated cost. The same run is available at `POST /benchmark`.
-
-<!-- TODO: paste your own benchmark output here, e.g.
-| Metric | Baseline | Gateway |
-|--------|----------|---------|
-| Avg latency | ... | ... |
-| Avg est. cost | ... | ... |
--->
-
-Caveats: 10 queries is a small sample, latency varies run to run with provider
-load, and cost is estimated from list prices, so treat the numbers as an
-indication rather than a rigorous result.
 
 ## Tests
 
@@ -127,7 +106,6 @@ gateway.py      core logic: classifier, routing, fallback, cost, benchmark
 main.py         FastAPI app
 run.py          one-command launcher (checks keys, starts server, opens /docs)
 demo_client.py  sends sample queries to the running server
-benchmark.py    CLI benchmark: gateway vs. direct baseline
 tests/          pytest suite with mocked LLM calls
 ```
 
