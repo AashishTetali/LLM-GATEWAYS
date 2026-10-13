@@ -90,15 +90,6 @@ sample queries to the running server and prints a summary table
 (`--compare` adds the baseline, `--all` runs all 10 queries).
 
 
-## Tests
-
-LLM calls are mocked, so no API keys are needed:
-
-```bash
-pip install -r requirements-dev.txt
-pytest -q
-```
-
 ## Project layout
 
 ```
@@ -106,7 +97,6 @@ gateway.py      core logic: classifier, routing, fallback, cost, benchmark
 main.py         FastAPI app
 run.py          one-command launcher (checks keys, starts server, opens /docs)
 demo_client.py  sends sample queries to the running server
-tests/          pytest suite with mocked LLM calls
 ```
 
 ## Possible next steps
